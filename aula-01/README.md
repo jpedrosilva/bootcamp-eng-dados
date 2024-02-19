@@ -24,7 +24,7 @@ def check_nome(x: str):
     except:
         raise Exception('Nome inválido, por favor, refaça a operação.')
 
-def check_float(x: float):
+def check_float(x: str):
     try:
         y = float(x.replace(',', '.'))
         if y < 0:
