@@ -1,2 +1,1 @@
-# bootcamp-eng-dados
-Bootcamp de engenharia de dados 2024
+# Bootcamp - Engenharia de Dados 2024
