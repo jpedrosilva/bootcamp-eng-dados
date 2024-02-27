@@ -7,10 +7,15 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11.5"
-pandera = "^0.18.0"
+pandera = {extras = ["io"], version = "^0.18.0"}
 pydantic = "^2.6.2"
 python-dotenv = "^1.0.1"
 sqlalchemy = "^2.0.27"
+pandas = "^2.2.1"
+psycopg2 = "^2.9.9"
+polars = "^0.20.10"
+pyarrow = "^15.0.0"
+duckdb = "^0.10.0"
 
 [tool.poetry.group.dev.dependencies]
 taskipy = "^1.12.2"
@@ -23,6 +28,7 @@ pytest = "^8.0.2"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.5.3"
+mermaid = "^0.3.2"
 
 [build-system]
 requires = ["poetry-core"]
@@ -30,3 +36,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
 profile = "black"
+
+[tool.taskipy.tasks]
+format = "black . && isort ."
+test = "pytest -v"
+doc = "mkdocs serve"
