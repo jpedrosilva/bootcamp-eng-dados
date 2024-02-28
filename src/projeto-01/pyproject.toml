@@ -42,3 +42,19 @@ profile = "black"
 format = "black . && isort ."
 test = "pytest -v"
 doc = "mkdocs serve"
+
+[tool.black]
+line-lenght = 80
+include = '\.piy?$'
+exclude = '''
+/(
+  \.git
+ | \.hg
+ | \.mypy_cache
+ | \.tox
+ | \.venv
+ | _build
+ | buck-out
+ | build
+ )/
+'''
