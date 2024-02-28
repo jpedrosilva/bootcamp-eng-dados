@@ -16,6 +16,7 @@ psycopg2 = "^2.9.9"
 polars = "^0.20.10"
 pyarrow = "^15.0.0"
 duckdb = "^0.10.0"
+tqdm = "^4.66.2"
 
 [tool.poetry.group.dev.dependencies]
 taskipy = "^1.12.2"
@@ -42,19 +43,3 @@ profile = "black"
 format = "black . && isort ."
 test = "pytest -v"
 doc = "mkdocs serve"
-
-[tool.black]
-line-lenght = 80
-include = '\.piy?$'
-exclude = '''
-/(
-  \.git
- | \.hg
- | \.mypy_cache
- | \.tox
- | \.venv
- | _build
- | buck-out
- | build
- )/
-'''
