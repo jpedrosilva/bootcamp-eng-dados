@@ -51,6 +51,7 @@ def load_table_postgre(df, table: str, schema: str) -> None:
                     con=engine,
                     if_exists=replace,
                     index=False,
+                    method="multi",
                 )
                 pbar.update(chunksize)
         print(f"Carga finalizada com sucesso.")

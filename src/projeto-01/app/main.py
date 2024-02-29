@@ -12,7 +12,7 @@ from modules.transform_data import aggregate_df_using_duckdb, aggregate_df_using
 
 @pa.check_output(ImportWeatherStationSchema, lazy=True)
 def load_csv_to_dataframe() -> pd.DataFrame:
-    """Carrega os dados do CSV/TXT para um pandas dataframe."""
+    """Carrega os dados do CSV/TXT para um pandas dataframe e faz a validação do output."""
     try:
         path = Path(
             r"C:\Users\User\Desktop\bootcamp\bootcamp-eng-dados\src\projeto-01\data\measurements.txt"
@@ -28,28 +28,15 @@ def load_csv_to_dataframe() -> pd.DataFrame:
     return df_weather_stations
 
 
-def load_csv_weather_stations() -> None:
-    """Realiza a leitura do dataframe e faz o load no banco de dados."""
-    try:
-        load_table_postgre(
-            df=load_csv_to_dataframe(),
-            table="raw_weather_stations",
-            schema="public",
-        )
-        print("O arquivo foi carregado no banco de dados.")
-    except Exception as e:
-        print(
-            f'Houve algum erro na execução do módulo "load_data_postgre.py"\nERROR: {e}'
-        )
-
-
 def main() -> None:
     try:
         # Testa a conexão com o banco de dados
         test_connection_postgre()
 
         # Carrega as informações para o banco de dados
-        load_csv_weather_stations()
+        load_table_postgre(
+            df=load_csv_to_dataframe(), table="raw_weather_stations", schema="public"
+        )
 
         # Executa a função de extração
         query = "SELECT * FROM public.raw_weather_stations"
@@ -72,9 +59,9 @@ def main() -> None:
         # Criando tabela de benchmark no banco de dados
         data_benchmark = {
             "framework": ["Polars", "DuckDB"],
-            "time_elapsed": [time_polars, time_duckdb],
+            "time_elapsed": [round(time_polars, 2), round(time_duckdb, 2)],
         }
-        df_benchmark = pd.DataFrame(data=data_benchmark)
+        df_benchmark = pd.DataFrame(data_benchmark)
         df_benchmark["dataset"] = "1MM rows"
 
         load_table_postgre(
