@@ -2,19 +2,25 @@ import pandas as pd
 from pydantic import validate_call
 from sqlalchemy import create_engine
 
+from .utils_log import log_decorator, time_measure_decorator
 
+
+@log_decorator
+@time_measure_decorator
 @validate_call
 def extract_data_pd(connection_string: str, query: str) -> pd.DataFrame:
-    """Extrair os dados do banco PostgreSQL para um pandas dataframe"""
-    try:
-        # Cria a engine para conexão com o banco PostgreSQL
-        engine = create_engine(connection_string)
+    """
+    Extracts data from a database using a provided SQL query and returns it as a pandas DataFrame.
 
-        # Executa a query e armazena em um pandas dataframe
-        with engine.connect() as conn, conn.begin():
-            df = pd.read_sql_query(query, conn)
+    Args:
+        connection_string (str): The connection string to connect to the database.
+        query (str): The SQL query to execute.
 
-        return df
+    Returns:
+        pd.DataFrame: A pandas DataFrame containing the results of the query.
+    """
+    engine = create_engine(connection_string)
 
-    except Exception as e:
-        print(f"Erro ao extrair os dados do banco de dados.\nERROR: {e}")
+    with engine.connect() as conn, conn.begin():
+        df = pd.read_sql_query(query, conn)
+    return df

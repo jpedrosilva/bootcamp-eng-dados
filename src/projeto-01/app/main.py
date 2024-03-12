@@ -14,9 +14,7 @@ from modules.transform_data import aggregate_df_using_duckdb, aggregate_df_using
 def load_csv_to_dataframe() -> pd.DataFrame:
     """Carrega os dados do CSV/TXT para um pandas dataframe e faz a validação do output."""
     try:
-        path = Path(
-            r"C:\Users\User\Desktop\bootcamp\bootcamp-eng-dados\src\projeto-01\data\measurements.txt"
-        )
+        path = Path("./data/measurements.txt")
         df_weather_stations = read_csv_file(
             path=path,
             delimiter=";",
