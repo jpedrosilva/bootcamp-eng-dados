@@ -1,7 +1,20 @@
-site_name: Documentação Projeto 01
+site_name: Bootcamp - Engenharia de Dados
 
 theme:
   name: material
 
+nav:
+  - Início: index.md
+  - Contratos de dados:
+      - Input Schemas: input-schemas.md
+      - Output Schemas: output-schemas.md
+  - Funções:
+      - Config: config.md
+      - Extract: extract.md
+      - Transform: transform.md
+      - Load: load.md
+
 plugins:
-  - mermaid2:
+  - search
+  - mermaid2
+  - mkdocstrings
