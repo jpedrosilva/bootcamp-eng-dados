@@ -12,9 +12,9 @@ from modules.transform_data import aggregate_df_using_duckdb, aggregate_df_using
 
 @pa.check_output(ImportWeatherStationSchema, lazy=True)
 def load_csv_to_dataframe() -> pd.DataFrame:
-    """Carrega os dados do CSV/TXT para um pandas dataframe e faz a validação do output."""
+    PATH_TXT = Path("./data/measurements.txt")
     try:
-        path = Path("./data/measurements.txt")
+        path = PATH_TXT
         df_weather_stations = read_csv_file(
             path=path,
             delimiter=";",
